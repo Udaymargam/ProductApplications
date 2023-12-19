@@ -1,0 +1,94 @@
+<html>
+<head>
+     <title>Add Product</title>
+     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script>
+            function validateForm() {
+            var pid = document.getElementById("pid").value;
+            var pname = document.getElementById("pname").value;
+            var price = document.getElementById("price").value;
+            var brand = document.getElementById("brand").value;
+            var madein = document.getElementById("madein").value;
+
+            if (pid.trim() === "" || pname.trim() === "" || price.trim() === "" || brand.trim() === "" || madein.trim() === "") {
+                alert("All fields must be filled out");
+                return false;
+            }
+
+			if (parseFloat(price) < 0) {
+			    alert("Price must be a non-negative value");
+    			return false;
+			}
+
+			if (pname.length > 50 || brand.length > 50) {
+    				alert("Product name and brand must be less than 50 characters");
+    				return false;
+			}
+			
+	    var manufacturingDate = document.getElementById("manufacturingDate").value;
+        var expiryDate = document.getElementById("expiryDate").value;
+        var manufacturingDateObj = new Date(manufacturingDate);
+        var expiryDateObj = new Date(expiryDate);
+        if (manufacturingDateObj > expiryDateObj) {
+            alert("Manufacturing date cannot be greater than expiry date.");
+            return false;
+        }
+            return true;
+        }
+    </script>
+</head>
+
+<body class="bg-warning">
+    
+    <div class="container mt-5 text-center">
+
+		<h2 class="text-center font-italic mb-5">Save Product Data</h2>
+
+    	<form method="post" action="./SaveProduct" onsubmit="return validateForm()" enctype="multipart/form-data">
+        
+            <div class="form-group">
+                <label class="font-italic font-weight-bold" for="proId">Product ID:</label>
+                <input type="text" class="form-control-sm" id="proId" name="proId" required>
+            </div>
+
+            <div class="form-group">
+                <label class="font-italic font-weight-bold"  for="proName">Product Name:</label>
+                <input type="text" class="form-control-sm" id="proName" name="proName" required>
+            </div>
+
+            <div class="form-group">
+                <label class="font-italic font-weight-bold" for="proPrice">Price:</label>
+                <input type="number" class="form-control-sm" id="proPrice" name="proPrice" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label class="font-italic font-weight-bold" for="proBrand">Brand:</label>
+                <input type="text" class="form-control-sm" id="proBrand" name="proBrand" required>
+            </div>
+
+            <div class="form-group">
+                <label class="font-italic font-weight-bold"  for="proMadeIn">Made In:</label>
+                <input type="text" class="form-control-sm" id="proMadeIn" name="proMadeIn" required>
+            </div>
+
+            <div class="form-group">
+                <label class="font-italic font-weight-bold"   for="proMfgDate">Manufacturing Date:</label>
+                <input type="date" class="form-control-sm" id="proMfgDate" name="proMfgDate" required>
+            </div>
+
+            <div class="form-group">
+                <label class="font-italic font-weight-bold"   for="proExpDate">Expiry Date:</label>
+                <input type="date" class="form-control-sm" id="proExpDate" name="proExpDate" required>
+            </div>
+
+            <div class="form-group">
+                <label class="font-italic font-weight-bold" for="proImage">Product Image:</label>
+                <input type="file" class="form-control-file-sm" id="proImage" name="proImage" accept="image/*" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Product</button>
+            <a class="btn btn-success" href="listOfProducts.jsp">List of products</a>
+        </form>
+    </div>
+</body>
+</html>
